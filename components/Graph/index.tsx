@@ -42,10 +42,8 @@ const Graph: React.FC<GraphProps> = ({items}) => {
   const uniqDates = uniqBy(prop('humanDate'), sortBy(prop('date'),items))
   const dates = pluck('humanDate', uniqDates);
   const dateMapper = (date: string) => {
-    console.log({date})
     const dateFilteredArr = filter(item=> item.humanDate === date ,items)
     const arr = pluck('amount', dateFilteredArr)
-    console.log({arr})
     return sum(arr)
   }
   const datesSums = map(dateMapper, dates);
