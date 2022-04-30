@@ -38,7 +38,7 @@ const FiltersBar:React.FC<FiltersBarProps> = ({sectors, regions, countries, quer
     }
   });
   return(
-    <div className='grid grid-cols-1 md:grid-cols-7 gap-4 auto-rows-max pt-3 pb-3 bg-blue-100'>
+    <div className='grid grid-cols-1 md:grid-cols-7 gap-4 auto-rows-max pt-3 pb-3 pr-3 pl-3 bg-blue-100'>
       <Select
         items={sortingTypes}
         selectedItem={formik.values.sortBy}

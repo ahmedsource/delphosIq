@@ -28,7 +28,6 @@ export const trimData =(data: Array<any>)=> {
 }
 
 export const getPaginatedProjects = (q: ParsedUrlQuery) => {
-  console.log({q})
   const page = q.page || 1;
   const from=q.from || 1959;
   const to = q.to || 2022
