@@ -4,29 +4,6 @@ export type Tag = {
   label: string;
   value: string;
 }
-export type SeedDataObject =   {
-  id: string,
-  url: string,
-  urlType: null,
-  type: string,
-  subType: string,
-  title: string,
-  description: string,
-  logo: null,
-  imageId: null,
-  overlayType: null,
-  imageType: null,
-  startDate: number,
-  endDate: null,
-  featured: false,
-  campaign: null,
-  primaryTags: Tag,
-  secondaryTags: null,
-  authors: null,
-  city: null,
-  country: null,
-  additionalInformation: Array<string | number >,
-}
 export type SelectOption= {
   label: string;
   value: string;

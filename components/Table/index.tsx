@@ -1,5 +1,5 @@
 import React from "react";
-
+import type {Project, Tag} from '../../common/types'
 type TableProps ={
   tableHeaders: Array<String>,
   tableData: Array<object>
@@ -15,9 +15,9 @@ const Table: React.FC<TableProps> = ({tableHeaders, tableData})=> {
         </tr>
       </thead>
       <tbody className="align-top">
-      {tableData.map(({additionalInformation, title, primaryTags, id}, i)=>{
-        const country = primaryTags.find(({subType})=> subType==='countries')?.label
-        const sectors = primaryTags.find(({subType})=> subType==='sectors')?.label
+      {tableData.map(({additionalInformation, title, primaryTags, id}: any, i)=>{
+        const country = primaryTags.find(({subType}:Tag)=> subType==='countries')?.label
+        const sectors = primaryTags.find(({subType}:Tag)=> subType==='sectors')?.label
         return (
           <tr key={`table-row=${id}-${i}`} className={`${i % 2 == 0 ? 'bg-blue-50': 'bg-white'} border-b`}>
             <td className="px-4 py-3  text-sm font-small text-gray-900 whitespace-nowrap">{additionalInformation[2]}</td>

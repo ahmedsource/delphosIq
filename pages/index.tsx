@@ -39,7 +39,7 @@ const Home: NextPage<HomeProps> = ({projects, sectors, regions, countries}) => {
             />
             <Graph items={projects.items}/>
           </div>
-          <Pagination totalPages={projects.totalPages} />
+          <Pagination totalPages={Number(projects.totalPages)} />
         
         </>
       }
@@ -49,7 +49,7 @@ const Home: NextPage<HomeProps> = ({projects, sectors, regions, countries}) => {
 
 export default Home
 
-export const getServerSideProps: GetServerSideProps<HomeProps> = async (
+export const getServerSideProps: GetServerSideProps<any> = async (
   ctx
 ) => {
   const [regions, countries,  sectors, projects] = await Promise.all([getRegions(), getCountries(), getSectors(), getPaginatedProjects(ctx.query)]);

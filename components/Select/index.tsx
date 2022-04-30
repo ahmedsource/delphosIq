@@ -8,11 +8,10 @@ type SelectItem = {
 }
 
 type SelectProps = {
-  selectedItem: String,
+  selectedItem: String | Array<string>,
   items: Array<SelectItem>,
   onChange: Function,
   multiple: boolean,
-  selectedItems: Array<SelectItem>
   labelText: String
 }
 
@@ -26,7 +25,7 @@ const Select:React.FC<SelectProps> = ({
     return items.find(item => item.value === selectedItem)?.label
   }
   return(
-    <Listbox value={selectedItem} onChange={onChange} multiple={multiple}>
+    <Listbox value={selectedItem} onChange={v=>onChange(v)} multiple={multiple}>
     <div className="relative mt-1">
       <Listbox.Button className="focus:outline-none relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
         <span className="block truncate">{label()}</span>

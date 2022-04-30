@@ -16,4 +16,4 @@ export const generateYearsOptions = (minVal:string) =>{
   return years
 }
 
-export const arrayFromMinMax = (min=1, max=10)=>Array.apply(null, {length: max + 1 - min}).map((_, idx)=> idx + min);
+export const arrayFromMax = (max=1)=>Array.from({length: max}, (_, i) => i + 1)

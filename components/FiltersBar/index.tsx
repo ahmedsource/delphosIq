@@ -1,10 +1,20 @@
 import React from "react";
+import type { Projects, SelectOption } from '../../common/types';
 import router from 'next/router';
 import {sortingTypes, generateYearsOptions} from '../../utils/helpers';
 import Select from '../Select';
 import { useFormik } from 'formik';
+import { ParsedUrlQuery } from 'querystring';
 
-const FiltersBar = ({sectors, regions, countries, query})=>{
+
+type FiltersBarProps = {
+  sectors: Array<SelectOption>
+  regions: Array<SelectOption>
+  countries: Array<SelectOption>
+  query: ParsedUrlQuery
+}
+
+const FiltersBar:React.FC<FiltersBarProps> = ({sectors, regions, countries, query})=>{
   const formik = useFormik({
     enableReinitialize: true,
     initialValues:{

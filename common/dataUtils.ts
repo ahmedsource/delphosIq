@@ -1,13 +1,13 @@
 import {data} from './data';
-import type { Project,Tag, SeedDataObject, BaseProject } from './types';
+import type { Project,Tag, BaseProject } from './types';
 import { ParsedUrlQuery } from 'querystring';
 import {uniqBy, prop, map, equals, pick, sortBy, pipe, filter} from 'ramda';
 
 
 const trimStr = (str: string) => str.replace(/,/g, '').replace(/€/g, '')
 
-export const trimData =(data: SeedDataObject)=> {
-  const trimmedData = map(pick(['id', 'primaryTags', 'title', 'additionalInformation', 'startDate']), data)
+export const trimData =(data: Array<any>)=> {
+  const trimmedData = map<any, any>(pick<any>(['id', 'primaryTags', 'title', 'additionalInformation', 'startDate']), data)
   const modified = trimmedData.map((x: BaseProject)=>{
     const country = x.primaryTags.filter(tag => tag.subType === 'countries')[0].value;
     const sector = x.primaryTags.filter(tag => tag.subType === 'sectors')[0].value;
@@ -16,7 +16,7 @@ export const trimData =(data: SeedDataObject)=> {
     return({
       ...x,
       date: x.additionalInformation[1],
-      amount: Number(trimStr(x.additionalInformation[0])),
+      amount: Number(trimStr(''+x.additionalInformation[0])),
       humanDate: x.additionalInformation[2],
       country,
       sector,
@@ -32,6 +32,7 @@ export const getPaginatedProjects = (q: ParsedUrlQuery) => {
   const page = q.page || 1;
   const from=q.from || 1959;
   const to = q.to || 2022
+  const sortByParam = q.sortBy || 'title'
   const perPage = Number(q.perPage || 10);
   const offset = (Number(page) - 1) * Number(perPage);
   const greaterThanFrom = (x:Project)=> x.startYear >= from;
@@ -46,7 +47,7 @@ export const getPaginatedProjects = (q: ParsedUrlQuery) => {
     filter(containCountry),
     filter(containSector),
     filter(containRegions)
-  )(sortBy(prop(q.sortBy), trimData(data)))
+  )(sortBy<any>(prop<any>(sortByParam), trimData(data)))
   
   const items = allResults.slice(offset, Number(perPage) + Number(offset));
   return ({
@@ -58,7 +59,7 @@ export const getPaginatedProjects = (q: ParsedUrlQuery) => {
 
 export const getByMetaSelector = (selector:string) => {
   const mapper = ({primaryTags}:Project)=> primaryTags.find(({subType})=>equals(subType,selector))
-  const filtered = map(mapper, data)
+  const filtered = map<any,any>(mapper, data)
   const uniqueValues = uniqBy(prop('value'))(filtered)
   return map(pick(['label', 'value']), uniqueValues)
 }

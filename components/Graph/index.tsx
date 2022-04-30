@@ -1,4 +1,5 @@
 import React from 'react';
+import type { Project } from '../../common/types';
 import {pluck, prop, uniqBy, sortBy, reduce, map, filter, sum} from 'ramda';
 import {
   Chart as ChartJS,
@@ -33,13 +34,17 @@ export const options = {
   },
 };
 
+type GraphProps = {
+  items: Array<Project>
+} 
 
-const Graph = ({items}) => {
+const Graph: React.FC<GraphProps> = ({items}) => {
   const uniqDates = uniqBy(prop('humanDate'), sortBy(prop('date'),items))
   const dates = pluck('humanDate', uniqDates);
-  const dateMapper = date => {
+  const dateMapper = (date: string) => {
     console.log({date})
-    const arr = pluck('amount', filter(item=> item.humanDate === date ,items))
+    const dateFilteredArr = filter(item=> item.humanDate === date ,items)
+    const arr = pluck('amount', dateFilteredArr)
     console.log({arr})
     return sum(arr)
   }
